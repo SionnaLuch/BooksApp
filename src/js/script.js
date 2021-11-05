@@ -29,16 +29,19 @@
     }
   }
   function initActions(){
-    const favouriteBooks = [];
+    const favoriteBooks = [];
     const booksList = document.querySelector(select.containerOf.list);
     const bookImages = booksList.querySelectorAll(select.containerOf.image);
     for(let image of bookImages){
       image.addEventListener('click', function(event){
         event.preventDefault();
-        image.classList.add('favorite');
         const bookID = image.getAttribute('data-id');
-        favouriteBooks.push(bookID);
+        favoriteBooks.push(bookID);
+        if(favoriteBooks.includes(bookID)){
+          image.classList.toggle('favorite');
+        }
       });
+      
 
     }
 
