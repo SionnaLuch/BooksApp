@@ -31,21 +31,25 @@
   function initActions(){
     const favoriteBooks = [];
     const booksList = document.querySelector(select.containerOf.list);
-    const bookImages = booksList.querySelectorAll(select.containerOf.image);
-    for(let image of bookImages){
-      image.addEventListener('click', function(event){
-        event.preventDefault();
-        const bookID = image.getAttribute('data-id');
-        favoriteBooks.push(bookID);
-        if(favoriteBooks.includes(bookID)){
-          image.classList.toggle('favorite');
-        }
-      });
+    //const bookImages = booksList.querySelectorAll(select.containerOf.image);
+    booksList.addEventListener('click', function(event){
+      event.preventDefault();
+      const image = event.target.offsetParent;
+      const bookID = image.getAttribute('data-id');
       
-
-    }
+      if(favoriteBooks.includes(bookID)){
+        image.classList.remove('favorite');
+        favoriteBooks.pop(bookID);
+      }else{
+        image.classList.add('favorite');
+        favoriteBooks.push(bookID);
+      }
+    });
 
   }
+  
+  
+
   render();
   initActions();
 }
