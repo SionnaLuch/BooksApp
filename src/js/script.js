@@ -1,3 +1,4 @@
+
 {
   'use strict';
   const select = {
@@ -7,6 +8,7 @@
     containerOf: {
       image: '.book__image',
       list: '.books-list',
+      filters: '.filters'
     }
   };
   const templates = {
@@ -45,10 +47,23 @@
         favoriteBooks.push(bookID);
       }
     });
-
+    const filters = [];
+    const filterBooks = document.querySelector(select.containerOf.filters);
+    filterBooks.addEventListener('click',function(event){
+      const filter = event.target;
+      if(filter.tagName == 'INPUT' && filter.name == 'filter' && filter.type == 'checkbox'){
+        if(filter.checked){
+          filters.push(filter.value);
+        }else{
+          const valueIndexof = filters.indexOf(filter.value);
+          filters.splice(valueIndexof, 1);
+          
+        }
+      }
+    });
   }
-  
-  
+
+
 
   render();
   initActions();
