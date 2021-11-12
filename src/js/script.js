@@ -17,6 +17,8 @@
   };
   const filters = [];
   const favoriteBooks = [];
+
+
   function render(){
     for(let book of dataSource.books){
       const bookData= {
@@ -26,10 +28,15 @@
         rating: book.rating,
         image: book.image,
       };
+      const ratingBgc = determineRatingBgc(bookData.rating);
+      bookData.ratingBgc = ratingBgc;
+      const ratingWidth = bookData.rating * 10;
+      bookData.ratingWidth = ratingWidth;
       const generatedHTML = templates.book(bookData);
       const generatedDOM = utils.createDOMFromHTML(generatedHTML);
       const containerOfList = document.querySelector(select.containerOf.list);
       containerOfList.appendChild(generatedDOM);
+      
     }
   }
   function initActions(){
@@ -86,6 +93,21 @@
 
     }
   }
+  function determineRatingBgc(rating){
+    let background = '';
+    if(rating < 6){
+      background = 'linear-gradient(to bottom,  #fefcea 0%, #f1da36 100%)';
+    } else if(rating > 6 && rating <= 8){
+      background = 'linear-gradient(to bottom, #b4df5b 0%,#b4df5b 100%)';
+    } else if(rating > 8 && rating <= 9){
+      background = 'linear-gradient(to bottom, #299a0b 0%, #299a0b 100%)';
+    }else if(rating > 9){
+      background = 'linear-gradient(to bottom, #ff0084 0%,#ff0084 100%)';
+    }
+
+    return background;
+  }
+
 
   
 
